@@ -1,0 +1,40 @@
+// This is free and unencumbered software released into the public domain.
+
+syntax = "proto3";
+
+package Conreality.SDK;
+
+option go_package = "github.com/conreality/conreality.go/sdk";
+
+option java_package = "dev.conreality.sdk";
+option java_outer_classname = "TurretProtocol";
+
+service Turret {
+  rpc MoveJoystick (MoveJoystickRequest) returns (TurretResponse) {}
+  rpc MoveRelative (MoveRelativeRequest) returns (TurretResponse) {}
+  rpc MoveAbsolute (MoveAbsoluteRequest) returns (TurretResponse) {}
+  rpc Fire (FireRequest) returns (TurretResponse) {}
+}
+
+message MoveJoystickRequest {
+  float pan = 1;        // -1..1
+  float tilt = 2;       // -1..1
+}
+
+message MoveRelativeRequest {
+  float panDelta = 1;   // in radians
+  float tiltDelta = 2;  // in radians
+  float speed = 3;      // 0..1
+}
+
+message MoveAbsoluteRequest {
+  float panAngle = 1;   // in radians
+  float tiltAngle = 2;  // in radians
+  float speed = 3;      // 0..1
+}
+
+message FireRequest {
+  uint32 count = 1;
+}
+
+message TurretResponse {}
